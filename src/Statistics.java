@@ -22,56 +22,56 @@ public class Statistics {
 	
 	
 	//Mean (Averaging) Method
-	public int getMean(int[] j) {
+	public int getMean(int[] meSet) {
 		mean = 0;
 		
 		//Loops through given array J and adds all numbers into a initialized variable mean
-		for(int i=0;i<j.length;i++) {
-			mean = mean+j[i];
+		for(int i=0;i<meSet.length;i++) {
+			mean = mean+meSet[i];
 		}
 		
 		//Divides mean by length of array J
-		mean = mean/(j.length);
+		mean = mean/(meSet.length);
 		
 		return mean;
 	}
 	
 	//Median (Middle) Method
-	public int getMedian(int[] j) {
+	public int getMedian(int[] mdSet) {
 		
 		//Sorts the given array J
-		Arrays.sort(j);
+		Arrays.sort(mdSet);
 		
 		//Returns Average of the two numbers in the middle of the array if even
-		if(j.length%2==0) {
-			median = (j[j.length/2-1]+j[j.length/2])/2;
+		if(mdSet.length%2==0) {
+			median = (mdSet[mdSet.length/2-1]+mdSet[mdSet.length/2])/2;
 		}
 		//Returns middle number of sorted array if odd
 		else
-			median = j[j.length/2+1];
+			median = mdSet[mdSet.length/2+1];
 		
 		return median;
 	}
 
 	//Mode Method
-	public int getMode(int[] j) {
+	public int getMode(int[] moSet) {
 
 		//Looks for the highest counted variable by going through array J with a nested for loop
-		for(int i = 0; i < j.length; i++) {
+		for(int i = 0; i < moSet.length; i++) {
 			
 			//resets maxCount and count every time the inner for loop finishes
 			maxCount = 0;
 			count = 0;
 			
-			for(int k = 0; k < j.length; k++) {
-				if(j[i]==j[k]) {
+			for(int k = 0; k < moSet.length; k++) {
+				if(moSet[i]==moSet[k]) {
 					count++;
 				}
 				
 				//Checks for a higher count and sets the current maxCount to it
 				if(maxCount < count) {
 					maxCount = count;
-					mode = j[i];
+					mode = moSet[i];
 				}
 			}
 		}
@@ -81,24 +81,24 @@ public class Statistics {
 	}
 	
 	//Standard Deviation Method
-	public double getStanDev(int[] j) {
+	public double getStanDev(int[] sDSet) {
 		
 		//Returns the square root of array j passed through the getVariance Method
-		return Math.sqrt(getVariance(j));
+		return Math.sqrt(getVariance(sDSet));
 	}
 	
 	//Variance Method
-	public int getVariance(int[] j) {
+	public int getVariance(int[] vSet) {
 		
 		var = 0;
 		
 		//Uses a for loop to add the square of the current value i with the average of array J to the initialized variable var
-		for(int i=0;i<j.length;i++) {
-			var += (j[i] - getMean(j))*(j[i]-getMean(j));
+		for(int i=0;i<vSet.length;i++) {
+			var += (vSet[i] - getMean(vSet))*(vSet[i]-getMean(vSet));
 		}
 		
 		//divides var by the length of j-1 
-		var /= j.length-1;
+		var /= vSet.length-1;
 		
 		return var;
 	}
