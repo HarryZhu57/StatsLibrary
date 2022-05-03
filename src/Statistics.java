@@ -160,54 +160,69 @@ public class Statistics {
 	}
 	
 	//Factorial Method
-	static int getFactorial(int j) {
+	static BigInteger getFactorial(int j) {
+		
+		BigInteger big = BigInteger.valueOf(j);
 		
 		//If the given int is greater than 0, recursion is used to find that num * num -1 until num = 0
 		if(j>=1) 
-			return j*getFactorial(j-1);
+			return big.multiply(getFactorial(j-1));
 		else
-			return 1;
+			return BigInteger.valueOf(1);
 	}
 	
 	//Permutation Method
-	public int getPermutation(int j, int k) {
+	public BigInteger getPermutation(int j, int k) {
 		
 		//Returns the Factorial of int J divided by the factorial of int j-k
-		return getFactorial(j)/getFactorial(j-k);
+		return getFactorial(j).divide(getFactorial(j-k));
 	}
 	
-	public int getCombination(int j, int k) {
+	public BigInteger getCombination(int j, int k) {
 		
 		//Returns the Factorial of int J divided by the factorial of int k * factorial of int j-k
-		return getFactorial(j)/(getFactorial(k)*getFactorial(j-k));
+		return getFactorial(j).divide((getFactorial(k).multiply(getFactorial(j-k))));
 	}
 	
 	public double getBinomial(double p, int j, int k) {
 		
-		return (getCombination(j,k)*Math.pow(p,k)*Math.pow((1-p),(j-k)))*100;
+		//k = number of times a specific outcome happens, j = number of times the experiment is carried
+		return getCombination(j,k).doubleValue()*Math.pow(p,k)*Math.pow((1-p),(j-k))*100;
 	}
 	
 	public double getGeometric(double p, int j) {
 		
+		// j = game in which we expect outcome of p to occur
 		return (Math.pow((1-p),(j-1))*(p))*100;
 	}
 
-	public double getHyperGeo(int j, int k, int i, int n) {
+	public double getHyperGeo(int k, int x, int bigN, int littlen) {
 		
-		//j = subset of sample group, k = total sample group size
-		//i = total amount chosen out of the group, n = amount chosen that are within the subset
-		return ((((BigInteger.valueOf(getCombination(j,n))).multiply(BigInteger.valueOf(getCombination((k-j),(i-n))))).doubleValue())/BigInteger.valueOf(getCombination(k,n)).doubleValue())*100;
+		//littlen = subset of sample group , BigN = total sample group size
+		//k = total amount chosen out of the group, x = amount chosen that are within the subset
+		return ((getCombination(k,x).multiply(getCombination((bigN-k),(littlen-x)))).doubleValue()/(getCombination(bigN,littlen)).doubleValue())*100;
 	}
 
 	public double getPoisson(int j, int k) {
 	
-		return ((Math.pow(j,k)*Math.exp(-j))/getFactorial(k))*100;
+		return (((Math.pow(j,k))/(getFactorial(k)).doubleValue())*Math.exp(-j))*100;
 	}
 
 	public double getCheb(double j, double k, double i, double n) {
 		
 		//j = average, k = standard dev, i = upper bound, n = lower bound
+
 		return (1-(1/Math.pow(((i-j)/k),2)))*100;
+	}
+	
+	public double getUniform(int j, int k, int x) {
+		if(j <= x && x <= k) {
+			return (1/(double)(k-j));
+		}
+		else {
+			return 0;
+		}
+			
 	}
 
 
